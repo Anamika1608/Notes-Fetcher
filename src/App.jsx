@@ -1,9 +1,10 @@
 import './App.css'
+import NotesFetcher from './components/NotesFetcher'
 
 function App() {
   return (
     <>
-     <h1>hello</h1>
+     <NotesFetcher/>
     </>
   )
 }
