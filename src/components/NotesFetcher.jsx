@@ -26,6 +26,22 @@ const notesData = {
       'Database Management': 'https://drive.google.com/file/d/19ewOImi4XGOfRDDXwxU5Zf-Hyh6bxH9K/preview',
     },
   },
+  'Electrical Engineering': {
+    '1st': {
+      'Circuit Theory': 'https://drive.google.com/file/d/1PHhkQmGfSbfFzsp1Wel8gzrWwwbz2cEz/preview',
+    },
+    '2nd': {
+      'Digital Electronics': 'https://drive.google.com/file/d/1ojxmEW0msFeWQpDVXW7tZVY7u-dGqPoj/preview',
+    },
+  },
+  'Mechanical Engineering': {
+    '1st': {
+      'Thermodynamics': 'https://drive.google.com/file/d/1vn8V8RmCMwCRteqajccIpEP2I-kYu5_r/preview',
+    },
+    '2nd': {
+      'Fluid Mechanics': 'https://drive.google.com/file/d/1ktOkT33TEtnVeq34ee3a0_ND2aFkJVWo/preview',
+    },
+  },
 };
 
 // Main NotesFetcher component
