@@ -15,6 +15,7 @@ const Loader = () => (
 );
 
 // URL mapping object for notes
+
 const notesData = {
   'Computer Science': {
     '1st': {
@@ -25,71 +26,57 @@ const notesData = {
       'Database Management': 'https://drive.google.com/file/d/19ewOImi4XGOfRDDXwxU5Zf-Hyh6bxH9K/preview',
     },
   },
-  'Electrical Engineering': {
-    '1st': {
-      'Circuit Theory': 'https://drive.google.com/file/d/1PHhkQmGfSbfFzsp1Wel8gzrWwwbz2cEz/preview',
-    },
-    '2nd': {
-      'Digital Electronics': 'https://drive.google.com/file/d/1ojxmEW0msFeWQpDVXW7tZVY7u-dGqPoj/preview',
-    },
-  },
-  'Mechanical Engineering': {
-    '1st': {
-      'Thermodynamics': 'https://drive.google.com/file/d/1vn8V8RmCMwCRteqajccIpEP2I-kYu5_r/preview',
-    },
-    '2nd': {
-      'Fluid Mechanics': 'https://drive.google.com/file/d/1ktOkT33TEtnVeq34ee3a0_ND2aFkJVWo/preview',
-    },
-  },
 };
 
 // Main NotesFetcher component
 const NotesFetcher = () => {
-  const [branch, setBranch] = useState(''); // Selected branch
-  const [semester, setSemester] = useState(''); // Selected semester
-  const [subject, setSubject] = useState(''); // Selected subject
-  const [noteUrl, setNoteUrl] = useState(''); // URL for fetched notes
-  const [currentStep, setCurrentStep] = useState(1); // Step tracking
-  const [loading, setLoading] = useState(false); // Loading state
-  const [error, setError] = useState(null); // Error state
+  // State variables
+  const [branch, setBranch] = useState('');
+  const [semester, setSemester] = useState('');
+  const [subject, setSubject] = useState('');
+  const [noteUrl, setNoteUrl] = useState('');
+  const [currentStep, setCurrentStep] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   // Mock data for dropdown options
+
   const branches = ['Computer Science', 'Electrical Engineering', 'Mechanical Engineering'];
-  const semesters = ['1st', '2nd']; // Reduced options to 2 semesters
+  const semesters = ['1st', '2nd']; // Reduced options to 2 semesters for simplicity
 
   // Function to fetch the note URL
   const fetchNoteUrl = (branch, semester, subject) => {
-    setLoading(true); // Set loading state
-    setError(null); // Clear any previous errors
+    setLoading(true);
+    setError(null);
     try {
       // Retrieve URL from the notesData object
       const url = notesData[branch]?.[semester]?.[subject] || null;
       if (!url) throw new Error('Notes are currently being prepared and will be available soon.');
       return url;
     } catch (err) {
-      setError(err.message); // Set error message
+      setError(err.message);
       return null;
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   };
 
   // Handle "Get Notes" button click
   const handleGetNotes = () => {
     if (branch && semester && subject) {
-      const url = fetchNoteUrl(branch, semester, subject); // Fetch notes URL
-      setNoteUrl(url); // Set fetched notes URL
+      const url = fetchNoteUrl(branch, semester, subject);
+      setNoteUrl(url);
     }
   };
 
-  // Update current step based on selected branch, semester, and subject
+  // Update current step based on selected options
   useEffect(() => {
     if (branch) setCurrentStep(2);
     if (semester) setCurrentStep(3);
     if (subject) setCurrentStep(4);
   }, [branch, semester, subject]);
 
-  // Memoized function to get subject options based on selected branch
+  // Memoized function to get subject options based on selected branch and semester
   const subjectOptions = useMemo(() => {
     return branch ? Object.keys(notesData[branch]?.[semester] || {}) : [];
   }, [branch, semester]);
@@ -116,6 +103,7 @@ const NotesFetcher = () => {
             <option key={option} value={option}>{option}</option>
           ))}
         </select>
+        {/* Show checkmark if an option is selected */}
         {value && value !== '' && (
           <span className="absolute inset-y-0 right-0 flex items-center pr-2 text-purple-500">
             ✓
@@ -147,18 +135,23 @@ const NotesFetcher = () => {
           <p className="text-3xl text-gray-800 font-Roca">All of your notes in one place</p>
         </div>
         
+        {/* Step 1: Branch selection */}
         {renderStep(1, "Select your branch", renderSelectBox("Branch", branch, setBranch, branches))}
         
+        {/* Step 2: Semester selection (only shown if branch is selected) */}
         {branch && renderStep(2, "Choose semester", renderSelectBox("Semester", semester, setSemester, semesters))}
         
+        {/* Step 3: Subject selection (only shown if semester is selected) */}
         {semester && renderStep(3, "Pick a subject", renderSelectBox("Subject", subject, setSubject, subjectOptions))}
         
+        {/* Success message when all steps are completed */}
         {currentStep === 4 && (
           <div className="text-green-700 font-medium mt-4 p-3 bg-green-200 bg-opacity-80 rounded-lg">
             Great! Your notes are ready to fetch.
           </div>
         )}
 
+        {/* Customized Error message if notes are not available */}
         {error && (
           <div className="mt-4 p-3 bg-yellow-200 bg-opacity-80 text-yellow-700 rounded-lg">
             <p className="font-semibold">Hang tight!</p>
@@ -166,6 +159,7 @@ const NotesFetcher = () => {
           </div>
         )}
 
+        {/* "Get Notes" button */}
         <div className="mt-8">
           <button 
             className="w-full bg-purple-600 text-white py-3 rounded-full font-medium hover:bg-purple-700 transition duration-300 flex items-center justify-center"
@@ -177,7 +171,7 @@ const NotesFetcher = () => {
         </div>
       </div>
 
-      {/* Main content area */}
+      {/* Main content area for displaying notes */}
       <div className="w-full md:w-2/3 p-6 bg-gray-900 flex items-center justify-center relative">
         {loading ? (
           <div className="flex items-center justify-center h-full">
@@ -191,6 +185,7 @@ const NotesFetcher = () => {
             allow="fullscreen"
           />
         ) : (
+          // Placeholder content when no notes are selected
           <div className="flex flex-col items-center justify-center h-full text-gray-400 animate-pulse">
             <div className="text-6xl mb-4">📄</div>
             {currentStep < 4 ? (
