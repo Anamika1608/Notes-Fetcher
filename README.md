@@ -15,8 +15,8 @@ This project provides a `NotesFetcher` React component, which allows users to fe
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/notes-fetcher.git
-   cd notes-fetcher
+   git clone https://github.com/Anamika1608/Notes-Fetcher.git
+   cd Notes-Fetcher
    ```
 
 2. **Install dependencies**:
@@ -34,7 +34,7 @@ This project provides a `NotesFetcher` React component, which allows users to fe
    Start the development server with:
 
    ```bash
-   npm start
+   npm run dev
    ```
 
    This will run the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
