@@ -1,8 +1,8 @@
-# NotesFetcher Component
+# NotesFetcher
 
-This project provides a `NotesFetcher` React component, which allows users to fetch and view notes based on selected branch, semester, and subject. The component includes a dynamic selection process and displays notes in an embedded iframe. 
+This project allows users to fetch and view notes based on selected branch, semester, and subject. It includes a dynamic selection process and displays notes in an embedded iframe. 
 
-## Features
+## Features 
 
 - **Step-by-Step Selection**: Users select their branch, semester, and subject in a guided process.
 - **Dynamic Dropdowns**: Subject options are dynamically populated based on the selected branch and semester.
